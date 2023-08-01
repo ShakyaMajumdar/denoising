@@ -1,2 +1,5 @@
 .venv
 .vscode
+data
+papers
+.ipynb_checkpoints
