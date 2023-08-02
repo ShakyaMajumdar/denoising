@@ -322,6 +322,14 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "llvmlite"
+version = "0.40.1"
+description = "lightweight wrapper around basic LLVM functionality"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[[package]]
 name = "markupsafe"
 version = "2.1.3"
 description = "Safely add untrusted strings to HTML/XML markup."
@@ -398,12 +406,24 @@ extra = ["lxml (>=4.6)", "pygraphviz (>=1.10)", "pydot (>=1.4.2)", "sympy (>=1.1
 test = ["pytest (>=7.2)", "pytest-cov (>=4.0)", "codecov (>=2.1)"]
 
 [[package]]
+name = "numba"
+version = "0.57.1"
+description = "compiling Python code using LLVM"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+llvmlite = ">=0.40.0dev0,<0.41"
+numpy = ">=1.21,<1.25"
+
+[[package]]
 name = "numpy"
-version = "1.25.1"
+version = "1.24.0"
 description = "Fundamental package for array computing in Python"
 category = "main"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.8"
 
 [[package]]
 name = "packaging"
@@ -851,7 +871,7 @@ dev = ["Sphinx (>=4.5.0)", "black (>=22.3.0)", "pylint (>=2.13.7)", "pytest (>=7
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "c2308d2942759882316922039c59e0288426078db0441fccc46aca8975fd1ff8"
+content-hash = "7cf8fcdab20c51586165660fefe95257ee7f4de8dc17b3204ef292280ecd7fda"
 
 [metadata.files]
 appnope = []
@@ -878,12 +898,14 @@ joblib = []
 jupyter-client = []
 jupyter-core = []
 kiwisolver = []
+llvmlite = []
 markupsafe = []
 matplotlib = []
 matplotlib-inline = []
 mpmath = []
 nest-asyncio = []
 networkx = []
+numba = []
 numpy = []
 packaging = []
 pandas = []
