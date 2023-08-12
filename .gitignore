@@ -3,3 +3,4 @@
 data
 papers
 .ipynb_checkpoints
+__pycache__
