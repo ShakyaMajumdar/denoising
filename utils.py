@@ -1,5 +1,5 @@
 import numpy as np
-
+import skimage.metrics
 
 def awgn(sig, snr_db):
     """
@@ -19,6 +19,17 @@ def calc_snr(clean, noisy):
     """
     return 10 * np.log10(np.sum(clean**2) / np.sum((noisy - clean) ** 2))
 
+def mse(clean, noisy):
+    return ((noisy - clean) ** 2).sum() / len(clean)
+
+def psnr(clean, noisy):
+    return 10 * np.log10(clean.max()**2/mse(clean, noisy))
+
+def tv(sig):
+    return np.sum(np.abs(np.diff(sig)))
+
+def ssim(clean, noisy):
+    return skimage.metrics.structural_similarity(clean, noisy, data_range=clean.max() - clean.min())
 
 def snr_db_to_np(ns, snr_db):
     """

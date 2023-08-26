@@ -111,7 +111,7 @@ class GMMRecoverer:
     def fit(self):
         self.denoiser.fit()
 
-    def recover(self, signal, *, phi, snr_db_est, lr, iters, switch_t):
+    def recover(self, signal, *, phi, snr_db_est, lr, iters, switch_t, iter_cb):
         self.denoiser.assert_trained()
         M, N = phi.shape  # M: measurement length, N: target length
 
@@ -119,7 +119,7 @@ class GMMRecoverer:
             signal, snr_db_est
         )
         Pis = [make_Pi(i, P, N) for i in range(N)]
-        x = np.zeros(N)
+        x = signal.copy()
 
         A = np.eye(N) - lr * phi.T @ phi
         B = lr * phi.T @ signal
@@ -129,6 +129,7 @@ class GMMRecoverer:
         for T in range(iters):
             x = denoiser(A @ x + B)
             if T == switch_t:
+                print("here1")
                 W = (
                     1
                     / P
@@ -144,5 +145,7 @@ class GMMRecoverer:
                         for i in range(N)
                     )
                 )
+                print("here")
                 denoiser = lambda z: W @ z
+            iter_cb(T, x)
         return x
